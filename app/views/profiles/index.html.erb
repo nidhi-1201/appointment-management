@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+       <th>image</th>
       <th>Name</th>
       <th>Contact</th>
       <th>Registration no.</th>
@@ -16,25 +17,24 @@
 
   <tbody>
     <% @profiles.each do |profile| %>
-    <% if profile.email == current_user.email%>
-      <tr>
-        <td><%= profile.name %></td>
-        <td><%= profile.contact %></td>
-        <td><%= profile.reg_no %></td>
-        <td><%= profile.email %></td>
-        <% if current_user&.doctor? %>
-        <td><%= profile.specialities %></td>
+        <% if profile.email == current_user.email%>
+          <tr>
+            <td><%= profile.name %></td>
+            <td><%= profile.contact %></td>
+            <td><%= profile.reg_no %></td>
+            <td><%= profile.email %></td>
+            <% if current_user&.doctor? %>
+              <td><%= profile.specialities %></td>
+            <% end %>
+            <td><%= link_to 'Show', profile %></td>
+            <td><%= link_to 'Edit', edit_profile_path(profile) %></td>
+            <td><%= link_to 'Destroy', profile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
         <% end %>
-        <td><%= link_to 'Show', profile %></td>
-        <td><%= link_to 'Edit', edit_profile_path(profile) %></td>
-        <td><%= link_to 'Destroy', profile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
     <% end %>
   </tbody>
 </table>
-
 <br>
-<% if can? :create, @appointment %>
-  <% link_to 'Go to my Appointments', appointments_path%>
+<% if can? :create, Appointment %>
+<%= link_to 'New Appointment', new_appointment_path %>
 <% end %>

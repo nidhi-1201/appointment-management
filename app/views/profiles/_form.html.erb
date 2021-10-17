@@ -11,6 +11,11 @@
     </div>
   <% end %>
 
+  <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+    <%= f.label :image, class: "form-label" %>
+    <%= f.file_field :image, class: "form-field" %>
+  </div>
+
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
@@ -30,6 +35,10 @@
     <%= f.label :email %><br>
     <%= f.text_field :email %>
   </div>
+
+  <% if current_user %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+  <% end %>
 
   <% if current_user&.doctor?%>
   <div class="field">
